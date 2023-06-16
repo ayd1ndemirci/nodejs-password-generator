@@ -1,5 +1,8 @@
 const readline = require('readline');
 const { execSync } = require('child_process');
+const crypto = require('crypto');
+
+const random = () => crypto.randomBytes(4).readUInt32BE() / 0xffffffff;
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -19,7 +22,7 @@ function generatePassword(length, includeNumbers, includeSpecialChars) {
   const charsetLength = charset.length;
 
   for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * charsetLength);
+    const randomIndex = Math.floor(random() * charsetLength);
     password += charset[randomIndex];
   }
 
